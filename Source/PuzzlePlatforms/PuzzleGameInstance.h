@@ -6,8 +6,13 @@
 #include "Engine/GameInstance.h"
 #include "PuzzleGameInstance.generated.h"
 
-/**
- * 
+/*
+
+Terminal Order :: (PowerShell >> &command)
+"UnrealEditor.exe path" "uproject path"
+ /Game/Maps/--, ipadress
+ -game, -server, -log
+
  */
 UCLASS()
 class PUZZLEPLATFORMS_API UPuzzleGameInstance : public UGameInstance

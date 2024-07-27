@@ -17,16 +17,17 @@ void UPuzzleGameInstance::Init()
 
 void UPuzzleGameInstance::Host(void)
 {
-    UEngine* Engine = GetEngine();                                              // GameInstance::GetEngine()
+    UEngine* Engine = GetEngine();                                                      // GameInstance::GetEngine()
     if(Engine == nullptr)
         return;
-    Engine->AddOnScreenDebugMessage(0, 2, FColor::Green, TEXT("Hosting"));      // #include Engine/Engine.h
+    Engine->AddOnScreenDebugMessage(0, 2, FColor::Green, TEXT("Hosting"));              // #include Engine/Engine.h
 
     UWorld* World = GetWorld();
     if(World == nullptr)
         return;
 
-    World->ServerTravel("/Game/ThirdPerson/Maps/ThirdPersonMap?listen");               // UWorld::ServerTravel()
+    World->ServerTravel("/Game/ThirdPerson/Maps/ThirdPersonMap?listen");                // UWorld::ServerTravel()
+                                                                                        // ?listen 인자 없으면 서버로 작동하지않음
 }
 
 void UPuzzleGameInstance::Join(const FString& address)
@@ -35,5 +36,10 @@ void UPuzzleGameInstance::Join(const FString& address)
     if(Engine != nullptr)
     {
         Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, FString::Printf(TEXT("Joining %s"), *address));
+
+        APlayerController* PlayerController = GetFirstLocalPlayerController();
+        if(!ensure(PlayerController != nullptr)) return;
+
+        PlayerController->ClientTravel(address, ETravelType::TRAVEL_Absolute);
     }
 }
