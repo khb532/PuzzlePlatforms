@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "MenuSystem/MainMenuInterface.h"
 #include "PuzzleGameInstance.generated.h"
 
 /*
@@ -15,7 +16,7 @@ Terminal Order :: (PowerShell >> &command)
 
  */
 UCLASS()
-class PUZZLEPLATFORMS_API UPuzzleGameInstance : public UGameInstance
+class PUZZLEPLATFORMS_API UPuzzleGameInstance : public UGameInstance, public IMainMenuInterface
 {
 	GENERATED_BODY()
 
@@ -38,5 +39,24 @@ public:
 	UFUNCTION(Exec)
 	void Join(const FString& address);
 
+	UFUNCTION(BlueprintCallable)
+	void LoadMenu();
+
+	UFUNCTION(BlueprintCallable)
+	void LoadInGameMenu();
+
+private:
+	/*
+	WBP, widget c++ 생성 -> GameInstance c++
+	생성자에서 WBP를 확보 : TSubClassOf<UUserWidget> Widget Class = FClassFinder<UUserWidget> Name.Class
+	BlueprintCallable Function, LoadMenu() 구현
+		menu(Widget.cpp) = CreateWidget<UUserWidget>(this, Widget Class)
+		menu->Setup(),SetInterface(this)
+	Level Blueprint -> GameInstance -> LoadMenu
+	*/
+	TSubclassOf<class UUserWidget> MainMenuClass;
+	TSubclassOf<class UUserWidget> InGameMenuClass;
+
+	class UMainMenu* MMenu;
 	
 };
