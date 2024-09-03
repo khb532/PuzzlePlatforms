@@ -34,16 +34,19 @@ public:
 	@ GameInstance
 	*/
 	UFUNCTION(Exec)		// Exec : 콘솔명령어, 플레이중 콘솔에서 사용할 명령어 생성
-	void Host();
+	void Host() override;
 
 	UFUNCTION(Exec)
-	void Join(const FString& address);
+	void Join(const FString& address) override;
 
 	UFUNCTION(BlueprintCallable)
 	void LoadMenu();
 
 	UFUNCTION(BlueprintCallable)
 	void LoadInGameMenu();
+
+	UFUNCTION(BlueprintCallable)
+	void LoadMainMenu() override;
 
 private:
 	/*
@@ -58,5 +61,6 @@ private:
 	TSubclassOf<class UUserWidget> InGameMenuClass;
 
 	class UMainMenu* MMenu;
+	class UMenuWidget* IMenu;
 	
 };

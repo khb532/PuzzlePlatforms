@@ -85,9 +85,17 @@ void UPuzzleGameInstance::LoadMenu()
 void UPuzzleGameInstance::LoadInGameMenu()
 {
     if(InGameMenuClass == NULL) return;
-    UMenuWidget* IMenu = CreateWidget<UMenuWidget>(this, InGameMenuClass);
+    IMenu = CreateWidget<UMenuWidget>(this, InGameMenuClass);
 
     if(IMenu == nullptr) return;
     IMenu->Setup();
     IMenu->SetMenuInterface(this);
+}
+
+void UPuzzleGameInstance::LoadMainMenu()
+{
+    APlayerController* PlayerController = GetFirstLocalPlayerController();
+        if(!ensure(PlayerController != nullptr)) return;
+
+        PlayerController->ClientTravel("/Game/MenuSystem/MainMenu", ETravelType::TRAVEL_Absolute);
 }
