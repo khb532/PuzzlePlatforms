@@ -12,6 +12,8 @@ void UInGameMenu::NativeConstruct()
 
     if(CancelButton == nullptr) return;
     CancelButton->OnClicked.AddDynamic(this, &UInGameMenu::CancelMenu);
+
+    SetIsFocusable(true);
 }
 
 void UInGameMenu::QuitServer()
@@ -23,5 +25,5 @@ void UInGameMenu::QuitServer()
 
 void UInGameMenu::CancelMenu()
 {
-    this->RemoveFromParent();
+    Teardown();
 }

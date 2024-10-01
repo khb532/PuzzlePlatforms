@@ -28,6 +28,8 @@ bool UMainMenu::Initialize()
     if(GameQuitButton == nullptr) return false;
     GameQuitButton->OnClicked.AddDynamic(this, &UMainMenu::GameQuit);
 
+    SetIsFocusable(true);
+
     return true;
 }
 

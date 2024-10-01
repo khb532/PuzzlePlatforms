@@ -25,7 +25,8 @@ void UMenuWidget::Setup()
         >>> Menu->TakeWidget()
             >> TSharedRef< SWidget > TakeWidget()
     */
-    APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+    UWorld* World = GetWorld();
+    APlayerController* PlayerController = World->GetFirstPlayerController();
     if(!ensure(PlayerController != nullptr)) return;
 
     PlayerController->bShowMouseCursor = true;
@@ -41,11 +42,11 @@ void UMenuWidget::SetMenuInterface(IMainMenuInterface* MenuInterface)
     this->m_MenuInterface = MenuInterface; 
 }
 
-void UMenuWidget::NativeDestruct()
+void UMenuWidget::Teardown()
 {
-    Super::NativeDestruct();
-
-    APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+    this->RemoveFromParent();
+    UWorld* World = GetWorld();
+    APlayerController* PlayerController = World->GetFirstPlayerController();
     if(!ensure(PlayerController != nullptr)) return;
     PlayerController->bShowMouseCursor = false;
     FInputModeGameOnly InputModeData;

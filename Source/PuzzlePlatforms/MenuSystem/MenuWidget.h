@@ -19,7 +19,7 @@ class PUZZLEPLATFORMS_API UMenuWidget : public UUserWidget
 public:
 	void Setup();
 	void SetMenuInterface(IMainMenuInterface* MenuInterface);
-	virtual void NativeDestruct() override;
+	void Teardown();
 
 protected:
 	IMainMenuInterface* m_MenuInterface;	// MenuWidget상속받는 Main, Ingame에서 사용->protected

@@ -40,7 +40,7 @@ void UPuzzleGameInstance::Init()
 void UPuzzleGameInstance::Host(void)
 {
     if(MMenu == nullptr) return;
-    MMenu->RemoveFromParent();                                                           // Menu 마우스 잠금 해제
+    MMenu->Teardown();                                                           // Menu 마우스 잠금 해제
 
     UEngine* Engine = GetEngine();                                                      // GameInstance::GetEngine()
     if(Engine == nullptr) return;
@@ -56,7 +56,7 @@ void UPuzzleGameInstance::Host(void)
 void UPuzzleGameInstance::Join(const FString& address)
 {
     if(MMenu == nullptr) return;
-    MMenu->RemoveFromParent();
+    MMenu->Teardown();
 
     UEngine* Engine = GetEngine();
     if(Engine != nullptr)
